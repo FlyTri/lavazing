@@ -23,7 +23,6 @@
   "dependencies": {
     "@discordjs/collection": "^1.5.1",
     "axios": "^1.4.0",
-    "crypto": "^1.0.1",
     "erela.js": "github:Tomato6966/erela.js",
     "tslib": "^2.6.0"
   }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Track } from "erela.js";
 import { createHash, createHmac } from "node:crypto";
 const apiKey = "X5BM3w8N7MKozC0B85o4KMlzLZKhV00y";
 const secretKey = "acOrvUS15XRW2o9JksiK1KgQ6Vbds8ZW";
@@ -6,7 +7,7 @@ const secretKey = "acOrvUS15XRW2o9JksiK1KgQ6Vbds8ZW";
 export class Main {
   public time: number;
   public cookies: string[];
-  constructor(zmp3_sid) {
+  constructor(zmp3_sid: string) {
     this.time = null;
     this.cookies = [zmp3_sid].filter(Boolean);
     console.log(zmp3_sid);
@@ -19,7 +20,9 @@ export class Main {
       }).then(({ data }) =>
         data.data.logged
           ? null
-          : console.log("\x1b[31m\x1b[1m[LavaZing]\x1b[0m | \x1b[31mInvalid zmp3_sid cookie was provided\x1b[0m")
+          : console.log(
+              "\x1b[31m\x1b[1m[LavaZing]\x1b[0m | \x1b[31mInvalid zmp3_sid cookie was provided\x1b[0m"
+            )
       );
   }
 
@@ -122,7 +125,11 @@ export class Main {
     return this.getHmac512(path + hash256, secretKey);
   }
 
-  async loadTrack({ id, encodeId, thumbnail, thumb, link }, requester, search) {
+  async loadTrack(
+    { id, encodeId, thumbnail, thumb, link },
+    requester,
+    search
+  ): Promise<Track> {
     const artworkUrl = (thumbnail || thumb)?.split("/");
     if (artworkUrl?.length) {
       artworkUrl[3] = "w300_r1x1_jpeg";

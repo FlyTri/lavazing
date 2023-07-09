@@ -1,17 +1,7 @@
-import { LoadTypes, Manager, Plugin } from "erela.js";
+import { LoadTypes, Manager, Plugin, Track } from "erela.js";
 import { Main } from "./Main";
 const regex =
   /^(?:https?:\/\/)?(?:www\.)?zingmp3\.vn\/(?:bai-hat|album)\/[a-zA-Z0-9-]+\/[a-zA-Z0-9]+\.(html|php)$/;
-type Track = {
-  type: number;
-  playStatus: number | undefined;
-  streamingStatus: number | undefined;
-  id: string;
-  encodeId: string;
-  thumbnail: string | undefined;
-  thumb: any | undefined;
-  link: any;
-};
 
 export class LavaZing extends Plugin {
   public querySource = ["zingmp3"];
@@ -39,7 +29,7 @@ export class LavaZing extends Plugin {
           !regex.test(_query.query) &&
           this.querySource.includes(_query.source)
         ) {
-          const suggestions: Track[] =
+          const suggestions: any[] =
             (await zing.suggestions(_query.query)).items[1]?.suggestions || [];
           const result = suggestions.filter(
             (track) => track.type == 1 && track.playStatus == 2
@@ -77,10 +67,10 @@ export class LavaZing extends Plugin {
           }
           case "album": {
             const album = await zing.getDetailPlaylist(id);
-            const tracks = await Promise.all(
+            const tracks: Track[] = await Promise.all(
               album.song.items
-                .filter((track: Track) => track.streamingStatus == 1)
-                .map((track: Track) =>
+                .filter((track: any) => track.streamingStatus == 1)
+                .map((track: any) =>
                   zing.loadTrack(track, requester, defaultSearch)
                 )
             );
@@ -89,7 +79,7 @@ export class LavaZing extends Plugin {
               loadType: LoadTypes.PlaylistLoaded,
               playlist: {
                 name: album.title,
-                duration: album.song.totalDuration * 1000,
+                duration: tracks.map((track) => track.duration),
               },
               exception: null,
               tracks,
