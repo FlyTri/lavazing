@@ -10,7 +10,6 @@ export class Main {
   constructor(zmp3_sid: string) {
     this.time = null;
     this.cookies = [zmp3_sid].filter(Boolean);
-    console.log(zmp3_sid);
     if (zmp3_sid)
       axios("https://jr.zingmp3.vn/jr/userinfo", {
         headers: {
@@ -134,7 +133,6 @@ export class Main {
     if (artworkUrl?.length) {
       artworkUrl[3] = "w300_r1x1_jpeg";
     }
-    console.log(id || encodeId);
     const streaming = await this.getStreaming("ZO9DAACI");
     const track = await search(
       streaming["320"] && streaming["320"] != "VIP"

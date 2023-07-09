@@ -54,7 +54,7 @@ class LavaZing extends erela_js_1.Plugin {
                             loadType: erela_js_1.LoadTypes.PlaylistLoaded,
                             playlist: {
                                 name: album.title,
-                                duration: album.song.totalDuration * 1000,
+                                duration: tracks.map((track) => track.duration),
                             },
                             exception: null,
                             tracks,

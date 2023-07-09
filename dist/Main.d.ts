@@ -1,7 +1,8 @@
+import { Track } from "erela.js";
 export declare class Main {
     time: number;
     cookies: string[];
-    constructor(zmp3_sid: any);
+    constructor(zmp3_sid: string);
     getHash256(str: any): string;
     getHmac512(str: any, key: any): string;
     getFullInfo(id: any): Promise<any>;
@@ -20,5 +21,5 @@ export declare class Main {
         thumbnail: any;
         thumb: any;
         link: any;
-    }, requester: any, search: any): Promise<any>;
+    }, requester: any, search: any): Promise<Track>;
 }
