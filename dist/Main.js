@@ -103,7 +103,7 @@ class Main {
             if (artworkUrl === null || artworkUrl === void 0 ? void 0 : artworkUrl.length) {
                 artworkUrl[3] = "w300_r1x1_jpeg";
             }
-            const streaming = yield this.getStreaming("ZO9DAACI");
+            const streaming = yield this.getStreaming(id || encodeId);
             const track = yield search(streaming["320"] && streaming["320"] != "VIP"
                 ? streaming["320"]
                 : streaming["128"], requester).then((res) => res.tracks[0]);

@@ -133,7 +133,7 @@ export class Main {
     if (artworkUrl?.length) {
       artworkUrl[3] = "w300_r1x1_jpeg";
     }
-    const streaming = await this.getStreaming("ZO9DAACI");
+    const streaming = await this.getStreaming(id || encodeId);
     const track = await search(
       streaming["320"] && streaming["320"] != "VIP"
         ? streaming["320"]
