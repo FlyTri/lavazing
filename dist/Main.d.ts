@@ -3,13 +3,13 @@ export declare class Main {
     time: number;
     cookies: string[];
     constructor(zmp3_sid: string);
-    getHash256(str: any): string;
-    getHmac512(str: any, key: any): string;
-    getFullInfo(id: any): Promise<any>;
-    getDetailPlaylist(id: any): Promise<any>;
-    getInfoMusic(id: any): Promise<any>;
-    getStreaming(id: any): Promise<any>;
-    suggestions(keyword: any): Promise<any>;
+    getHash256(str: string): string;
+    getHmac512(str: string, key: string): string;
+    getFullInfo(id: string): Promise<any>;
+    getDetailPlaylist(id: string): Promise<any>;
+    getInfoMusic(id: string): Promise<any>;
+    getStreaming(id: string): Promise<any>;
+    suggestions(keyword: string): Promise<any>;
     request({ path, params }: {
         path: any;
         params?: {};
@@ -21,5 +21,5 @@ export declare class Main {
         thumbnail: any;
         thumb: any;
         link: any;
-    }, requester: any, search: any): Promise<Track>;
+    }, requester: unknown, search: any): Promise<Track>;
 }
