@@ -1,4 +1,4 @@
-import { Track } from "erela.js";
+import { Node, Track } from "erela.js";
 export declare class Main {
     time: number;
     cookies: string[];
@@ -21,5 +21,5 @@ export declare class Main {
         thumbnail: any;
         thumb: any;
         link: any;
-    }, requester: unknown, search: any): Promise<Track>;
+    }, requester: unknown, search: any, node: Node): Promise<Track>;
 }

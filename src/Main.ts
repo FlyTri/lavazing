@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SearchResult, Track } from "erela.js";
+import { Node, SearchResult, Track } from "erela.js";
 import { createHash, createHmac } from "node:crypto";
 const apiKey = "X5BM3w8N7MKozC0B85o4KMlzLZKhV00y";
 const secretKey = "acOrvUS15XRW2o9JksiK1KgQ6Vbds8ZW";
@@ -127,7 +127,8 @@ export class Main {
   async loadTrack(
     { id, encodeId, thumbnail, thumb, link },
     requester: unknown,
-    search: any
+    search: any,
+    node: Node
   ): Promise<Track> {
     const artworkUrl = (thumbnail || thumb)?.split("/");
     if (artworkUrl?.length) {
@@ -138,7 +139,8 @@ export class Main {
       streaming["320"] && streaming["320"] != "VIP"
         ? streaming["320"]
         : streaming["128"],
-      requester
+      requester,
+      node
     ).then((res: SearchResult) => res.tracks[0]);
     track.uri = link.startsWith("http") ? link : `https://zingmp3.vn${link}`;
     track.artworkUrl = artworkUrl.join("/");

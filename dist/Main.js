@@ -96,7 +96,7 @@ class Main {
         const hash256 = this.getHash256(strHash);
         return this.getHmac512(path + hash256, secretKey);
     }
-    loadTrack({ id, encodeId, thumbnail, thumb, link }, requester, search) {
+    loadTrack({ id, encodeId, thumbnail, thumb, link }, requester, search, node) {
         var _a;
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             const artworkUrl = (_a = (thumbnail || thumb)) === null || _a === void 0 ? void 0 : _a.split("/");
@@ -106,7 +106,7 @@ class Main {
             const streaming = yield this.getStreaming(id || encodeId);
             const track = yield search(streaming["320"] && streaming["320"] != "VIP"
                 ? streaming["320"]
-                : streaming["128"], requester).then((res) => res.tracks[0]);
+                : streaming["128"], requester, node).then((res) => res.tracks[0]);
             track.uri = link.startsWith("http") ? link : `https://zingmp3.vn${link}`;
             track.artworkUrl = artworkUrl.join("/");
             track.sourceName = "zingmp3";

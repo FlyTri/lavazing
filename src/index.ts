@@ -1,4 +1,4 @@
-import { LoadTypes, Manager, Plugin, Track } from "erela.js";
+import { LoadTypes, Manager, Node, Plugin, Track } from "erela.js";
 import { Main } from "./Main";
 const regex =
   /^(?:https?:\/\/)?(?:www\.)?zingmp3\.vn\/(?:bai-hat|album)\/[a-zA-Z0-9-]+\/[a-zA-Z0-9]+\.(html|php)$/;
@@ -16,7 +16,12 @@ export class LavaZing extends Plugin {
     zmp3_sid: string | undefined;
   }) {
     super();
-    this.querySource = options.querySource ?? ["zmp3","zmp3s","zingmp3","zingmp3searech"];
+    this.querySource = options.querySource ?? [
+      "zmp3",
+      "zmp3s",
+      "zingmp3",
+      "zingmp3searech",
+    ];
     this.zmp3_sid = options.zmp3_sid ?? "";
   }
   load(manager: Manager) {
@@ -27,7 +32,7 @@ export class LavaZing extends Plugin {
     const zing = new Main(this.zmp3_sid);
     const defaultSearch = manager.search.bind(manager);
 
-    manager.search = async (query, requester) => {
+    manager.search = async (query, requester, customNode?: Node) => {
       const _query = typeof query == "string" ? { query } : query;
 
       if (
@@ -45,7 +50,7 @@ export class LavaZing extends Plugin {
           );
           const tracks = await Promise.all(
             result.map((track) =>
-              zing.loadTrack(track, requester, defaultSearch)
+              zing.loadTrack(track, requester, defaultSearch, customNode)
             )
           );
 
@@ -70,7 +75,14 @@ export class LavaZing extends Plugin {
               exception: null,
               tracks:
                 track.streamingStatus == 1
-                  ? [await zing.loadTrack(track, requester, defaultSearch)]
+                  ? [
+                      await zing.loadTrack(
+                        track,
+                        requester,
+                        defaultSearch,
+                        customNode
+                      ),
+                    ]
                   : [],
             };
           }
@@ -80,7 +92,7 @@ export class LavaZing extends Plugin {
               album.song.items
                 .filter((track: any) => track.streamingStatus == 1)
                 .map((track: any) =>
-                  zing.loadTrack(track, requester, defaultSearch)
+                  zing.loadTrack(track, requester, defaultSearch, customNode)
                 )
             );
 
