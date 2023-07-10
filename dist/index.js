@@ -6,13 +6,17 @@ const erela_js_1 = require("erela.js");
 const Main_1 = require("./Main");
 const regex = /^(?:https?:\/\/)?(?:www\.)?zingmp3\.vn\/(?:bai-hat|album)\/[a-zA-Z0-9-]+\/[a-zA-Z0-9]+\.(html|php)$/;
 class LavaZing extends erela_js_1.Plugin {
-    constructor(options = {
-        querySource: ["zmp3s", "zmp3", "zingmp3", "zingmp3search"],
-        zmp3_sid: null,
-    }) {
+    constructor(options) {
+        var _a, _b;
         super();
-        this.querySource = options.querySource;
-        this.zmp3_sid = options.zmp3_sid;
+        this.querySource = [
+            "zmp3s",
+            "zmp3",
+            "zingmp3",
+            "zingmp3search",
+        ];
+        this.querySource = (_a = options.querySource) !== null && _a !== void 0 ? _a : [];
+        this.zmp3_sid = (_b = options.zmp3_sid) !== null && _b !== void 0 ? _b : "";
     }
     load(manager) {
         manager.options.allowedLinksRegexes.push(/^https?:\/\/.*\.zmdcdn\.me\//, /^https?:\/\/zingmp3\.vn\//);
