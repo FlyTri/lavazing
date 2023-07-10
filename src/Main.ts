@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Track } from "erela.js";
+import { SearchResult, Track } from "erela.js";
 import { createHash, createHmac } from "node:crypto";
 const apiKey = "X5BM3w8N7MKozC0B85o4KMlzLZKhV00y";
 const secretKey = "acOrvUS15XRW2o9JksiK1KgQ6Vbds8ZW";
@@ -25,17 +25,17 @@ export class Main {
       );
   }
 
-  getHash256(str) {
+  getHash256(str: string) {
     return createHash("sha256").update(str).digest("hex");
   }
 
-  getHmac512(str, key) {
+  getHmac512(str: string, key: string) {
     return createHmac("sha512", key)
       .update(Buffer.from(str, "utf8"))
       .digest("hex");
   }
 
-  async getFullInfo(id) {
+  async getFullInfo(id: string) {
     const [infoMusic, streaming] = await Promise.all([
       this.getInfoMusic(id),
       this.getStreaming(id),
@@ -43,21 +43,21 @@ export class Main {
     return { ...infoMusic, streaming };
   }
 
-  getDetailPlaylist(id) {
+  getDetailPlaylist(id: string) {
     return this.request({
       path: "/api/v2/page/get/playlist",
       params: { id },
     });
   }
 
-  getInfoMusic(id) {
+  getInfoMusic(id: string) {
     return this.request({
       path: "/api/v2/song/get/info",
       params: { id },
     });
   }
 
-  getStreaming(id) {
+  getStreaming(id: string) {
     return this.request(
       {
         path: "/api/v2/song/get/streaming",
@@ -67,7 +67,7 @@ export class Main {
     );
   }
 
-  suggestions(keyword) {
+  suggestions(keyword: string) {
     return this.request({
       path: "https://ac.zingmp3.vn/v1/web/ac-suggestions",
       params: {
@@ -126,8 +126,8 @@ export class Main {
 
   async loadTrack(
     { id, encodeId, thumbnail, thumb, link },
-    requester,
-    search
+    requester: unknown,
+    search: any
   ): Promise<Track> {
     const artworkUrl = (thumbnail || thumb)?.split("/");
     if (artworkUrl?.length) {
@@ -139,7 +139,7 @@ export class Main {
         ? streaming["320"]
         : streaming["128"],
       requester
-    ).then((res) => res.tracks[0]);
+    ).then((res: SearchResult) => res.tracks[0]);
     track.uri = link.startsWith("http") ? link : `https://zingmp3.vn${link}`;
     track.artworkUrl = artworkUrl.join("/");
     track.sourceName = "zingmp3";

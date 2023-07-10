@@ -4,11 +4,17 @@ const regex =
   /^(?:https?:\/\/)?(?:www\.)?zingmp3\.vn\/(?:bai-hat|album)\/[a-zA-Z0-9-]+\/[a-zA-Z0-9]+\.(html|php)$/;
 
 export class LavaZing extends Plugin {
-  public querySource = ["zingmp3"];
+  public querySource: string[];
   public zmp3_sid: string;
-  constructor({ zmp3_sid }) {
+  constructor(
+    options = {
+      querySource: ["zmp3s", "zmp3", "zingmp3", "zingmp3search"],
+      zmp3_sid: null,
+    }
+  ) {
     super();
-    this.zmp3_sid = zmp3_sid;
+    this.querySource = options.querySource;
+    this.zmp3_sid = options.zmp3_sid;
   }
   load(manager: Manager) {
     manager.options.allowedLinksRegexes.push(
