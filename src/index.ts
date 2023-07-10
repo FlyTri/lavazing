@@ -5,9 +5,11 @@ const regex =
 
 export class LavaZing extends Plugin {
   public querySource: string[] | undefined = [
+    "zmp3search",
     "zmp3s",
     "zmp3",
     "zingmp3",
+    "zingmp3s",
     "zingmp3search",
   ];
   public zmp3_sid: string | undefined;
