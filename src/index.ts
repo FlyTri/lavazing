@@ -16,7 +16,7 @@ export class LavaZing extends Plugin {
     zmp3_sid: string | undefined;
   }) {
     super();
-    this.querySource = options.querySource ?? [];
+    this.querySource = options.querySource ?? ["zmp3","zmp3s","zingmp3","zingmp3searech"];
     this.zmp3_sid = options.zmp3_sid ?? "";
   }
   load(manager: Manager) {
