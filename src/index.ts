@@ -1,4 +1,4 @@
-import { LoadTypes, Manager, Node, Plugin, Track } from "erela.js";
+import { Manager, Node, Plugin, Track } from "erela.js";
 import { Main } from "./Main";
 const regex =
   /^(?:https?:\/\/)?(?:www\.)?zingmp3\.vn\/(?:bai-hat|album)\/[a-zA-Z0-9-]+\/[a-zA-Z0-9]+\.(html|php)$/;
@@ -52,7 +52,7 @@ export class LavaZing extends Plugin {
           );
 
           return {
-            loadType: LoadTypes.SearchResult,
+            loadType: "search",
             exception: null,
             tracks,
           };
@@ -67,8 +67,8 @@ export class LavaZing extends Plugin {
             return {
               loadType:
                 track.streamingStatus == 1
-                  ? LoadTypes.TrackLoaded
-                  : LoadTypes.NoMatches,
+                  ? "track"
+                  : "empty",
               exception: null,
               tracks:
                 track.streamingStatus == 1
@@ -94,7 +94,7 @@ export class LavaZing extends Plugin {
             );
 
             return {
-              loadType: LoadTypes.PlaylistLoaded,
+              loadType: "playlist",
               playlist: {
                 name: album.title,
                 duration: tracks.map((track) => track.duration),
