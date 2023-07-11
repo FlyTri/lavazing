@@ -9,19 +9,13 @@ class LavaZing extends erela_js_1.Plugin {
     constructor(options) {
         var _a, _b;
         super();
-        this.querySource = [
+        this.querySource = (_a = options.querySource) !== null && _a !== void 0 ? _a : [
             "zmp3search",
             "zmp3s",
             "zmp3",
             "zingmp3",
             "zingmp3s",
             "zingmp3search",
-        ];
-        this.querySource = (_a = options.querySource) !== null && _a !== void 0 ? _a : [
-            "zmp3",
-            "zmp3s",
-            "zingmp3",
-            "zingmp3searech",
         ];
         this.zmp3_sid = (_b = options.zmp3_sid) !== null && _b !== void 0 ? _b : "";
     }
