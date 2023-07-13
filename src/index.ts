@@ -11,7 +11,7 @@ export class LavaZing extends Plugin {
     zmp3_sid: string | undefined;
   }) {
     super();
-    this.querySource = options.querySource ?? [
+    this.querySource = options?.querySource || [
       "zmp3search",
       "zmp3s",
       "zmp3",
@@ -19,7 +19,7 @@ export class LavaZing extends Plugin {
       "zingmp3s",
       "zingmp3search",
     ];
-    this.zmp3_sid = options.zmp3_sid ?? "";
+    this.zmp3_sid = options?.zmp3_sid;
   }
   load(manager: Manager) {
     manager.options.allowedLinksRegexes.push(
@@ -65,10 +65,7 @@ export class LavaZing extends Plugin {
             const track = await zing.getInfoMusic(id);
 
             return {
-              loadType:
-                track.streamingStatus == 1
-                  ? "track"
-                  : "empty",
+              loadType: track.streamingStatus == 1 ? "track" : "empty",
               exception: null,
               tracks:
                 track.streamingStatus == 1

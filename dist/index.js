@@ -7,9 +7,8 @@ const Main_1 = require("./Main");
 const regex = /^(?:https?:\/\/)?(?:www\.)?zingmp3\.vn\/(?:bai-hat|album)\/[a-zA-Z0-9-]+\/[a-zA-Z0-9]+\.(html|php)$/;
 class LavaZing extends erela_js_1.Plugin {
     constructor(options) {
-        var _a, _b;
         super();
-        this.querySource = (_a = options.querySource) !== null && _a !== void 0 ? _a : [
+        this.querySource = (options === null || options === void 0 ? void 0 : options.querySource) || [
             "zmp3search",
             "zmp3s",
             "zmp3",
@@ -17,7 +16,7 @@ class LavaZing extends erela_js_1.Plugin {
             "zingmp3s",
             "zingmp3search",
         ];
-        this.zmp3_sid = (_b = options.zmp3_sid) !== null && _b !== void 0 ? _b : "";
+        this.zmp3_sid = options === null || options === void 0 ? void 0 : options.zmp3_sid;
     }
     load(manager) {
         manager.options.allowedLinksRegexes.push(/^https?:\/\/.*\.zmdcdn\.me\//, /^https?:\/\/zingmp3\.vn\//);
@@ -44,9 +43,7 @@ class LavaZing extends erela_js_1.Plugin {
                     case "bai-hat": {
                         const track = yield zing.getInfoMusic(id);
                         return {
-                            loadType: track.streamingStatus == 1
-                                ? "track"
-                                : "empty",
+                            loadType: track.streamingStatus == 1 ? "track" : "empty",
                             exception: null,
                             tracks: track.streamingStatus == 1
                                 ? [
