@@ -1,6 +1,6 @@
 {
   "name": "lavazing",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Support ZingMp3 for @Tomato6966/erela.js",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

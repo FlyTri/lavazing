@@ -34,7 +34,7 @@ class LavaZing extends erela_js_1.Plugin {
                     const result = suggestions.filter((track) => track.type == 1 && track.playStatus == 2);
                     const tracks = yield Promise.all(result.map((track) => zing.loadTrack(track, requester, defaultSearch, customNode)));
                     return {
-                        loadType: erela_js_1.LoadTypes.SearchResult,
+                        loadType: "search",
                         exception: null,
                         tracks,
                     };
@@ -45,8 +45,8 @@ class LavaZing extends erela_js_1.Plugin {
                         const track = yield zing.getInfoMusic(id);
                         return {
                             loadType: track.streamingStatus == 1
-                                ? erela_js_1.LoadTypes.TrackLoaded
-                                : erela_js_1.LoadTypes.NoMatches,
+                                ? "track"
+                                : "empty",
                             exception: null,
                             tracks: track.streamingStatus == 1
                                 ? [
@@ -61,7 +61,7 @@ class LavaZing extends erela_js_1.Plugin {
                             .filter((track) => track.streamingStatus == 1)
                             .map((track) => zing.loadTrack(track, requester, defaultSearch, customNode)));
                         return {
-                            loadType: erela_js_1.LoadTypes.PlaylistLoaded,
+                            loadType: "playlist",
                             playlist: {
                                 name: album.title,
                                 duration: tracks.map((track) => track.duration),
